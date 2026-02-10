@@ -1,13 +1,14 @@
 pipeline {
-    agent {
-        docker {
-            image 'maven:3.9.6-eclipse-temurin-17'
-            }
-        }
-        stages {
+    agent any
+    stages {
         stage('Build') {
             steps {
-                sh 'mvn -B -DskipTests clean package'
+                script {
+                    docker.image('maven:3.9.6-eclipse-temurin-17')
+                          .inside {
+                        sh 'mvn -B -DskipTests clean package'
+                          }
+                }
             }
         }
         stage('Test') {
