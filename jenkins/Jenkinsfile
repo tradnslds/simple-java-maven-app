@@ -1,5 +1,9 @@
 pipeline {
     agent any
+    environment {
+        M2_HOME = "/home/jenkins/maven"
+        PATH = "${M2_HOME}/bin:${env.PATH}"
+    }
     stages {
         stage('Build') {
             steps {
